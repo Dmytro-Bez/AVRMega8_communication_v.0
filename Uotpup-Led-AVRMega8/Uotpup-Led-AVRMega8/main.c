@@ -1,7 +1,7 @@
 #define  F_CPU 8000000
 #include <avr/io.h>
 
-void Init()
+void Init_port_D()
 {
 	DDRD=0xFF;
 	PORTD=0b10000000;
@@ -16,7 +16,7 @@ void Init()
 
 int main(void)
 {
-	Init();
+	Init_port_D();
 	while (1)
 	{
 	}
