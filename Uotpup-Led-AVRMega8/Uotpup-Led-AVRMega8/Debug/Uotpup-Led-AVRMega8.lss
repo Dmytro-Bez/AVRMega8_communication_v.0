@@ -1,29 +1,29 @@
 
-2.elf:     file format elf32-avr
+Uotpup-Led-AVRMega8.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000004a  00000000  00000000  00000054  2**1
+  0 .text         00000066  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  0000009e  2**0
+  1 .data         00000000  00800060  00800060  000000ba  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000009e  2**0
+  2 .comment      00000030  00000000  00000000  000000ba  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000d0  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000ec  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000028  00000000  00000000  0000010c  2**0
+  4 .debug_aranges 00000028  00000000  00000000  00000128  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000533  00000000  00000000  00000134  2**0
+  5 .debug_info   00000533  00000000  00000000  00000150  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000004c5  00000000  00000000  00000667  2**0
+  6 .debug_abbrev 000004c5  00000000  00000000  00000683  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000001c4  00000000  00000000  00000b2c  2**0
+  7 .debug_line   000001ee  00000000  00000000  00000b48  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000034  00000000  00000000  00000cf0  2**2
+  8 .debug_frame  00000034  00000000  00000000  00000d38  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000296  00000000  00000000  00000d24  2**0
+  9 .debug_str    000002ce  00000000  00000000  00000d6c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000018  00000000  00000000  00000fba  2**0
+ 10 .debug_ranges 00000018  00000000  00000000  0000103a  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -56,8 +56,8 @@ Disassembly of section .text:
   2c:	d4 e0       	ldi	r29, 0x04	; 4
   2e:	de bf       	out	0x3e, r29	; 62
   30:	cd bf       	out	0x3d, r28	; 61
-  32:	07 d0       	rcall	.+14     	; 0x42 <main>
-  34:	08 c0       	rjmp	.+16     	; 0x46 <_exit>
+  32:	15 d0       	rcall	.+42     	; 0x5e <main>
+  34:	16 c0       	rjmp	.+44     	; 0x62 <_exit>
 
 00000036 <__bad_interrupt>:
   36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
@@ -71,22 +71,43 @@ void Init()
 	DDRD=0xFF;
   38:	8f ef       	ldi	r24, 0xFF	; 255
   3a:	81 bb       	out	0x11, r24	; 17
-	PORTD=0b00000001;
-  3c:	81 e0       	ldi	r24, 0x01	; 1
+	PORTD=0b10000000;
+  3c:	80 e8       	ldi	r24, 0x80	; 128
   3e:	82 bb       	out	0x12, r24	; 18
-  40:	08 95       	ret
+	PORTD=0b01000000;
+  40:	80 e4       	ldi	r24, 0x40	; 64
+  42:	82 bb       	out	0x12, r24	; 18
+	PORTD=0b00100000;
+  44:	80 e2       	ldi	r24, 0x20	; 32
+  46:	82 bb       	out	0x12, r24	; 18
+	PORTD=0b00010000;
+  48:	80 e1       	ldi	r24, 0x10	; 16
+  4a:	82 bb       	out	0x12, r24	; 18
+	PORTD=0b00001000;
+  4c:	88 e0       	ldi	r24, 0x08	; 8
+  4e:	82 bb       	out	0x12, r24	; 18
+	PORTD=0b00000100;
+  50:	84 e0       	ldi	r24, 0x04	; 4
+  52:	82 bb       	out	0x12, r24	; 18
+	PORTD=0b00000010;
+  54:	82 e0       	ldi	r24, 0x02	; 2
+  56:	82 bb       	out	0x12, r24	; 18
+	PORTD=0b00000001;
+  58:	81 e0       	ldi	r24, 0x01	; 1
+  5a:	82 bb       	out	0x12, r24	; 18
+  5c:	08 95       	ret
 
-00000042 <main>:
+0000005e <main>:
 }
 
 int main(void)
 {
 	Init();
-  42:	fa df       	rcall	.-12     	; 0x38 <Init>
-  44:	ff cf       	rjmp	.-2      	; 0x44 <main+0x2>
+  5e:	ec df       	rcall	.-40     	; 0x38 <Init>
+  60:	ff cf       	rjmp	.-2      	; 0x60 <main+0x2>
 
-00000046 <_exit>:
-  46:	f8 94       	cli
+00000062 <_exit>:
+  62:	f8 94       	cli
 
-00000048 <__stop_program>:
-  48:	ff cf       	rjmp	.-2      	; 0x48 <__stop_program>
+00000064 <__stop_program>:
+  64:	ff cf       	rjmp	.-2      	; 0x64 <__stop_program>
