@@ -1,29 +1,29 @@
 
-2.elf:     file format elf32-avr
+Uotpup-Led-AVRMega8.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000004a  00000000  00000000  00000054  2**1
+  0 .text         0000003e  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  0000009e  2**0
+  1 .data         00000000  00800060  00800060  00000092  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000009e  2**0
+  2 .comment      00000030  00000000  00000000  00000092  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000d0  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000c4  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000028  00000000  00000000  0000010c  2**0
+  4 .debug_aranges 00000020  00000000  00000000  00000100  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000533  00000000  00000000  00000134  2**0
+  5 .debug_info   00000509  00000000  00000000  00000120  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000004c5  00000000  00000000  00000667  2**0
+  6 .debug_abbrev 00000497  00000000  00000000  00000629  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000001c4  00000000  00000000  00000b2c  2**0
+  7 .debug_line   00000140  00000000  00000000  00000ac0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000034  00000000  00000000  00000cf0  2**2
+  8 .debug_frame  00000024  00000000  00000000  00000c00  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000296  00000000  00000000  00000d24  2**0
+  9 .debug_str    000002c1  00000000  00000000  00000c24  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000018  00000000  00000000  00000fba  2**0
+ 10 .debug_ranges 00000010  00000000  00000000  00000ee5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -56,37 +56,22 @@ Disassembly of section .text:
   2c:	d4 e0       	ldi	r29, 0x04	; 4
   2e:	de bf       	out	0x3e, r29	; 62
   30:	cd bf       	out	0x3d, r28	; 61
-  32:	07 d0       	rcall	.+14     	; 0x42 <main>
-  34:	08 c0       	rjmp	.+16     	; 0x46 <_exit>
+  32:	02 d0       	rcall	.+4      	; 0x38 <main>
+  34:	02 c0       	rjmp	.+4      	; 0x3a <_exit>
 
 00000036 <__bad_interrupt>:
   36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
 
-00000038 <Init>:
+00000038 <main>:
 #define  F_CPU 8000000
 #include <avr/io.h>
 
-void Init()
-{
-	DDRD=0xFF;
-  38:	8f ef       	ldi	r24, 0xFF	; 255
-  3a:	81 bb       	out	0x11, r24	; 17
-	PORTD=0b00000001;
-  3c:	81 e0       	ldi	r24, 0x01	; 1
-  3e:	82 bb       	out	0x12, r24	; 18
-  40:	08 95       	ret
-
-00000042 <main>:
-}
-
 int main(void)
 {
-	Init();
-  42:	fa df       	rcall	.-12     	; 0x38 <Init>
-  44:	ff cf       	rjmp	.-2      	; 0x44 <main+0x2>
+  38:	ff cf       	rjmp	.-2      	; 0x38 <main>
 
-00000046 <_exit>:
-  46:	f8 94       	cli
+0000003a <_exit>:
+  3a:	f8 94       	cli
 
-00000048 <__stop_program>:
-  48:	ff cf       	rjmp	.-2      	; 0x48 <__stop_program>
+0000003c <__stop_program>:
+  3c:	ff cf       	rjmp	.-2      	; 0x3c <__stop_program>
