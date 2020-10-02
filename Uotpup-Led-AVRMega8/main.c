@@ -1,23 +1,22 @@
-#define  F_CPU 8000000
-#include <avr/io.h>
+#include "main.h"
 
-void Init_port_D()
+/*Функція ініціалізації контролера*/
+void init_cpu()
 {
+	DDRB=0x00;
+	DDRC=0xFF;
 	DDRD=0xFF;
-	PORTD=0b10000000;
-	PORTD=0b01000000;
-	PORTD=0b00100000;
-	PORTD=0b00010000;
-	PORTD=0b00001000;
-	PORTD=0b00000100;
-	PORTD=0b00000010;
-	PORTD=0b00000001;
+
+	PORTB=0x01;
+	PORTC=0x00;
+	PORTD=0xFF;
 }
 
-int main(void)
-{
-	Init_port_D();
-	while (1)
-	{
-	}
+/* Replace with your library code */
+int main(void){
+	init_cpu();
+	uart_init(8);
+
+	_delay_ms(100);
+	return 0;
 }
