@@ -1,0 +1,236 @@
+
+AVRMega8_communication.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000ee  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000162  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  00800060  00800060  00000162  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000162  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000194  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000078  00000000  00000000  000001d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000007b5  00000000  00000000  00000248  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000065b  00000000  00000000  000009fd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000454  00000000  00000000  00001058  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000ac  00000000  00000000  000014ac  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000036a  00000000  00000000  00001558  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000000aa  00000000  00000000  000018c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000048  00000000  00000000  0000196c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	4a c0       	rjmp	.+148    	; 0xa2 <__vector_6>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a1 36       	cpi	r26, 0x61	; 97
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	0b d0       	rcall	.+22     	; 0x5a <main>
+  44:	52 c0       	rjmp	.+164    	; 0xea <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <init_cpu>:
+#include "main.h"
+
+/*Init CPU_Mega8A*/
+void init_cpu()
+{
+	DDRB=0x00;
+  48:	17 ba       	out	0x17, r1	; 23
+	DDRC=0xFF;
+  4a:	8f ef       	ldi	r24, 0xFF	; 255
+  4c:	84 bb       	out	0x14, r24	; 20
+	DDRD=0xFF;
+  4e:	81 bb       	out	0x11, r24	; 17
+
+	PORTB=0x01;
+  50:	91 e0       	ldi	r25, 0x01	; 1
+  52:	98 bb       	out	0x18, r25	; 24
+	PORTC=0x00;
+  54:	15 ba       	out	0x15, r1	; 21
+	PORTD=0xFF;
+  56:	82 bb       	out	0x12, r24	; 18
+  58:	08 95       	ret
+
+0000005a <main>:
+}
+
+/* Replace with your library code */
+int main(void){
+	init_cpu();
+  5a:	f6 df       	rcall	.-20     	; 0x48 <init_cpu>
+	uart_init(8);					//115200
+  5c:	88 e0       	ldi	r24, 0x08	; 8
+  5e:	90 e0       	ldi	r25, 0x00	; 0
+  60:	37 d0       	rcall	.+110    	; 0xd0 <uart_init>
+	uart_transmit('O');
+  62:	8f e4       	ldi	r24, 0x4F	; 79
+  64:	3e d0       	rcall	.+124    	; 0xe2 <uart_transmit>
+	uart_transmit(0x0d);
+  66:	8d e0       	ldi	r24, 0x0D	; 13
+  68:	3c d0       	rcall	.+120    	; 0xe2 <uart_transmit>
+	uart_transmit(0x0a);
+  6a:	8a e0       	ldi	r24, 0x0A	; 10
+  6c:	3a d0       	rcall	.+116    	; 0xe2 <uart_transmit>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  6e:	2f ef       	ldi	r18, 0xFF	; 255
+  70:	84 e3       	ldi	r24, 0x34	; 52
+  72:	9c e0       	ldi	r25, 0x0C	; 12
+  74:	21 50       	subi	r18, 0x01	; 1
+  76:	80 40       	sbci	r24, 0x00	; 0
+  78:	90 40       	sbci	r25, 0x00	; 0
+  7a:	e1 f7       	brne	.-8      	; 0x74 <main+0x1a>
+  7c:	00 c0       	rjmp	.+0      	; 0x7e <main+0x24>
+  7e:	00 00       	nop
+	_delay_ms(500);
+	init_timer();
+  80:	02 d0       	rcall	.+4      	; 0x86 <init_timer>
+	sei();
+  82:	78 94       	sei
+  84:	ff cf       	rjmp	.-2      	; 0x84 <main+0x2a>
+
+00000086 <init_timer>:
+#include "timer.h"
+
+unsigned char i;
+
+void init_timer(){
+	TCCR1B |= (1<<WGM12);
+  86:	8e b5       	in	r24, 0x2e	; 46
+  88:	88 60       	ori	r24, 0x08	; 8
+  8a:	8e bd       	out	0x2e, r24	; 46
+	TIMSK |= (1<<OCIE1A);
+  8c:	89 b7       	in	r24, 0x39	; 57
+  8e:	80 61       	ori	r24, 0x10	; 16
+  90:	89 bf       	out	0x39, r24	; 57
+	OCR1AH = 0b01111010;
+  92:	8a e7       	ldi	r24, 0x7A	; 122
+  94:	8b bd       	out	0x2b, r24	; 43
+	OCR1AL = 0b00010010;
+  96:	82 e1       	ldi	r24, 0x12	; 18
+  98:	8a bd       	out	0x2a, r24	; 42
+	TCCR1B |= (1<<CS12);
+  9a:	8e b5       	in	r24, 0x2e	; 46
+  9c:	84 60       	ori	r24, 0x04	; 4
+  9e:	8e bd       	out	0x2e, r24	; 46
+  a0:	08 95       	ret
+
+000000a2 <__vector_6>:
+}
+
+ISR (TIMER1_COMPA_vect){
+  a2:	1f 92       	push	r1
+  a4:	0f 92       	push	r0
+  a6:	0f b6       	in	r0, 0x3f	; 63
+  a8:	0f 92       	push	r0
+  aa:	11 24       	eor	r1, r1
+  ac:	8f 93       	push	r24
+	 if(i>9) i=0;
+  ae:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  b2:	8a 30       	cpi	r24, 0x0A	; 10
+  b4:	10 f0       	brcs	.+4      	; 0xba <__vector_6+0x18>
+  b6:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+	 //segchar(i);
+	 i++;
+  ba:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  be:	8f 5f       	subi	r24, 0xFF	; 255
+  c0:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+  c4:	8f 91       	pop	r24
+  c6:	0f 90       	pop	r0
+  c8:	0f be       	out	0x3f, r0	; 63
+  ca:	0f 90       	pop	r0
+  cc:	1f 90       	pop	r1
+  ce:	18 95       	reti
+
+000000d0 <uart_init>:
+#include "uart_init.h"
+
+void uart_init( unsigned int speed){
+	UBRRH = (unsigned char)(speed>>8);
+  d0:	90 bd       	out	0x20, r25	; 32
+	UBRRL = (unsigned char)speed;
+  d2:	89 b9       	out	0x09, r24	; 9
+	UCSRB=(1<<RXEN)|( 1<<TXEN); 
+  d4:	88 e1       	ldi	r24, 0x18	; 24
+  d6:	8a b9       	out	0x0a, r24	; 10
+	UCSRB |= (1<<RXCIE); 
+  d8:	57 9a       	sbi	0x0a, 7	; 10
+	UCSRA |= (1<<U2X); 
+  da:	59 9a       	sbi	0x0b, 1	; 11
+	UCSRC = (1<<URSEL)|(1<<USBS)|(1<<UCSZ1)|(1<<UCSZ0);
+  dc:	8e e8       	ldi	r24, 0x8E	; 142
+  de:	80 bd       	out	0x20, r24	; 32
+  e0:	08 95       	ret
+
+000000e2 <uart_transmit>:
+ }
+
+void uart_transmit( unsigned char data ){
+	while ( !(UCSRA & (1<<UDRE)) );
+  e2:	5d 9b       	sbis	0x0b, 5	; 11
+  e4:	fe cf       	rjmp	.-4      	; 0xe2 <uart_transmit>
+	UDR = data;
+  e6:	8c b9       	out	0x0c, r24	; 12
+  e8:	08 95       	ret
+
+000000ea <_exit>:
+  ea:	f8 94       	cli
+
+000000ec <__stop_program>:
+  ec:	ff cf       	rjmp	.-2      	; 0xec <__stop_program>
