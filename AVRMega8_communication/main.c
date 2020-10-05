@@ -21,6 +21,9 @@ int main(void){
 	uart_transmit(0x0a);
 	_delay_ms(500);
 
+	init_timer();
+	sei();
+
 	while(1);
 	return 0;
 }
