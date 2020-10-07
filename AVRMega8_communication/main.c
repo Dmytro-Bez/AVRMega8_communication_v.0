@@ -22,7 +22,7 @@ int main(void){
 	_delay_ms(500);
 	init_timer();
 	sei();
-
+	EEPROM_write(1, 120);
 	while(1);
 	return 0;
 }

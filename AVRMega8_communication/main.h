@@ -11,5 +11,6 @@
 #include <stdlib.h>
 #include "uart_init.h"
 #include "timer.h"
+#include "eeprom.h"
 
 #endif /* MAIN_H_ */
